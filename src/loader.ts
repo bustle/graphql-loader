@@ -206,5 +206,3 @@ function minifyDocumentString(documentString: string): string {
 function defaultHashFunction(documentString: string): string {
   return createHash('sha256').update(documentString).digest('hex')
 }
-
-export { removeDuplicateFragments, removeSourceLocations, removeUnusedFragments } from './transforms'

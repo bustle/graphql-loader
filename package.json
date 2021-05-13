@@ -3,16 +3,17 @@
   "version": "1.0.0",
   "description": "GraphQL Loader for Webpack",
   "license": "MIT",
-  "main": "./lib/loader.js",
-  "types": "./lib/loader.d.ts",
+  "main": "./dist/index.js",
   "files": [
-    "lib"
+    "dist"
   ],
   "homepage": "https://github.com/bustle/graphql-loader",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bustle/graphql-loader.git"
-  },
+  "repository": "bustle/graphql-loader",
+  "keywords": [
+    "webpack",
+    "loader",
+    "graphql"
+  ],
   "scripts": {
     "build": "tsc",
     "test": "jest",
