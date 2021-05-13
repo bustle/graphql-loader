@@ -77,7 +77,7 @@ module.exports = {
   // ...
   plugins: [
     new GraphQLLoaderPlugin({
-      hashManifestFilename: 'graphql-hash-manifest.json' // Optional filename option. This is the default
+      manifestFilename: 'graphql-hash-manifest.json' // Optional filename option. This is the default
     })
   ]
 }

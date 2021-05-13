@@ -5,14 +5,14 @@ import { hashedQueryMapKey } from './loader'
 const PluginName = 'GraphQLLoaderPlugin'
 
 interface GraphQLLoaderPluginOptions {
-  hashManifestFilename?: string
+  manifestFilename?: string
 }
 
 export default class GraphQLLoaderPlugin implements WebpackPluginInstance {
-  private hashManifestFilename: string
+  private manifestFilename: string
 
   constructor(options?: GraphQLLoaderPluginOptions) {
-    this.hashManifestFilename = options?.hashManifestFilename || 'graphql-hash-manifest.json'
+    this.manifestFilename = options?.manifestFilename || 'graphql-hash-manifest.json'
   }
 
   apply(compiler: Compiler) {
@@ -28,13 +28,17 @@ export default class GraphQLLoaderPlugin implements WebpackPluginInstance {
           const hashes = Object.keys(hashedQueryMap)
           if (!hashes.length) return
 
-          const hashedQueryMapSorted = hashes.sort().reduce((sorted, hash) => {
-            sorted[hash] = hashedQueryMap[hash]
-            return sorted
-          }, {} as Record<string, string>)
+          const manifest = hashes.sort().reduce<Record<string, object>>((acc, hash) => {
+            acc[hash] = {
+              query: hashedQueryMap[hash],
+              extensions: {
+                persistedQuery: { version: 1, sha256Hash: hash }
+              }
+            }
+            return acc
+          }, {})
 
-          const content = JSON.stringify(hashedQueryMapSorted, null, 2)
-          compilation.emitAsset(this.hashManifestFilename, new sources.RawSource(content))
+          compilation.emitAsset(this.manifestFilename, new sources.RawSource(JSON.stringify(manifest)))
         }
       )
     })
