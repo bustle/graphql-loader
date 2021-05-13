@@ -61,6 +61,16 @@ Generate JS modules that use the ES modules syntax
 
 If `true`, the loader will remove unused fragments from the imported document. This may be useful if a query is importing fragments from a file, but does not use all fragments in that file. Also see [this issue](https://github.com/apollographql/graphql-tag/issues/102).
 
+#### hash _(boolean | "replace") (default=false)_
+
+If `true`, exports an additional constant named `hash` which is a sha256 hash of the query contents. This can be used for [persisted queries](https://www.apollographql.com/docs/apollo-server/performance/apq/).
+
+If `'replace'` is specified, the default export will be replaced with the hash instead of exporting the query. Useful in a production environment if your server is aware of the persisted hashes and you don't want to bundle the queries.
+
+#### hashFunction _(function) (default=defaultHashFunction)_
+
+If using the `hash` option, you can supply a custom hashing function. If not specified, there is a default that uses the built-in node crypto.
+
 ## Import statements in `.graphql` files
 
 The loader supports importing `.graphql` files from other `.graphql` files using an `#import` statement. For example:

@@ -1,5 +1,6 @@
 import { join, dirname } from 'path'
 import { promisify } from 'util'
+import { createHash } from 'crypto'
 import { LoaderContext } from 'webpack'
 import { print as graphqlPrint } from 'graphql/language/printer'
 import { parse as graphqlParse } from 'graphql/language/parser'
@@ -14,6 +15,8 @@ interface LoaderOptions {
   output?: 'string' | 'document'
   removeUnusedFragments?: boolean
   minify?: boolean
+  hash?: boolean | 'replace'
+  hashFunction?: (string) => string
 }
 
 interface CachedSchema {
@@ -182,20 +185,34 @@ export default async function loader(this: LoaderContext<LoaderOptions>, source:
     const documentContent = options.output === 'document' ? document : graphqlPrint(document)
     const documentOutput =
       typeof documentContent === 'string' && options.minify ? minifyDocumentString(documentContent) : documentContent
+
+    const hashOutput =
+      !!options.hash &&
+      typeof documentOutput === 'string' &&
+      (options.hashFunction ?? defaultHashFunction)(documentOutput)
+    const hashSource = hashOutput ? `export const hash=${JSON.stringify(hashOutput)}\n` : ''
+
     const defaultExportDef = options.esModule ? 'export default ' : 'module.exports='
-    const outputSource = defaultExportDef + JSON.stringify(documentOutput)
+    const defaultExportSource =
+      defaultExportDef + (options.hash === 'replace' ? 'hash' : JSON.stringify(documentOutput))
+    const outputSource = hashSource + defaultExportSource
+
     done(null, outputSource)
   } catch (err) {
     done(err)
   }
 }
 
-function minifyDocumentString(documentString: string) {
+function minifyDocumentString(documentString: string): string {
   return documentString
     .replace(/#.*/g, '') // remove comments
     .replace(/\\n/g, ' ') // replace line breaks with space
     .replace(/\s\s+/g, ' ') // replace consecutive whitespace with one space
     .replace(/\s*({|}|\(|\)|\.|:|,|=|@)\s*/g, '$1') // remove whitespace before/after operators
+}
+
+function defaultHashFunction(documentString: string): string {
+  return createHash('sha256').update(documentString).digest('hex')
 }
 
 export { removeDuplicateFragments, removeSourceLocations, removeUnusedFragments } from './transforms'
