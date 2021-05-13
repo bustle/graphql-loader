@@ -144,6 +144,20 @@ fragment B on B {
 }
 `;
 
+exports[`graphql-loader hash 1`] = `
+Object {
+  "default": "query X{x y z}",
+  "hash": "0cc86a7ea2ae4bb9587dd06bdc58e17d9c29e14748e703a8e7716736433d2209",
+}
+`;
+
+exports[`graphql-loader hash-replace 1`] = `
+Object {
+  "default": "0cc86a7ea2ae4bb9587dd06bdc58e17d9c29e14748e703a8e7716736433d2209",
+  "hash": "0cc86a7ea2ae4bb9587dd06bdc58e17d9c29e14748e703a8e7716736433d2209",
+}
+`;
+
 exports[`graphql-loader issue-1-import-from-fragment 1`] = `
 Object {
   "default": "{

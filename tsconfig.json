@@ -3,8 +3,10 @@
     "strict": true,
     "declaration": true,
     "noEmitOnError": true,
-    "lib": ["es2020"],
-    "outDir": "lib/"
+    "module": "commonjs",
+    "target": "es2019",
+    "lib": ["es2019"],
+    "outDir": "dist"
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src"]
 }
