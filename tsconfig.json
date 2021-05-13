@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "declaration": true,
+    "noEmitOnError": true,
+    "lib": ["es2020"],
+    "outDir": "lib/"
+  },
+  "include": ["src/**/*.ts"]
+}

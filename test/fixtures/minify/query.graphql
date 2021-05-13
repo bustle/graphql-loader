@@ -1,0 +1,15 @@
+#import "./fragment.graphql" 
+
+
+ query testQuery ( $q : string! , $t:string , $x:Boolean)  {  # comment
+  test ( q: $q, t : $t) { # comment #comment
+    x
+     y  @include( if:  $x )
+
+    # comment
+    # comment
+      ...Z
+  }
+}
+
+ 

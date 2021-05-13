@@ -1,0 +1,212 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`graphql-loader document-output 1`] = `
+Object {
+  "default": Object {
+    "definitions": Array [
+      Object {
+        "directives": Array [],
+        "kind": "OperationDefinition",
+        "name": Object {
+          "kind": "Name",
+          "value": "X",
+        },
+        "operation": "query",
+        "selectionSet": Object {
+          "kind": "SelectionSet",
+          "selections": Array [
+            Object {
+              "arguments": Array [],
+              "directives": Array [],
+              "kind": "Field",
+              "name": Object {
+                "kind": "Name",
+                "value": "x",
+              },
+            },
+            Object {
+              "arguments": Array [],
+              "directives": Array [],
+              "kind": "Field",
+              "name": Object {
+                "kind": "Name",
+                "value": "y",
+              },
+            },
+            Object {
+              "arguments": Array [],
+              "directives": Array [],
+              "kind": "Field",
+              "name": Object {
+                "kind": "Name",
+                "value": "z",
+              },
+            },
+          ],
+        },
+        "variableDefinitions": Array [],
+      },
+    ],
+    "kind": "Document",
+  },
+}
+`;
+
+exports[`graphql-loader fail-invalid-document 1`] = `
+Array [
+  "Module build failed (from ..):
+GraphQLError: Syntax Error: Expected Name, found \\"[\\".",
+]
+`;
+
+exports[`graphql-loader fail-invalid-field 1`] = `
+Array [
+  "Module Error (from ..):
+Cannot query field \\"q\\" on type \\"Y\\". Did you mean \\"z\\"?",
+]
+`;
+
+exports[`graphql-loader fail-invalid-schema-path 1`] = `
+Array [
+  "Module build failed (from ..):
+Error: Could not find schema file '. from any parent of ''",
+]
+`;
+
+exports[`graphql-loader fail-missing-fragment 1`] = `
+Array [
+  "Module Error (from ..):
+Unknown fragment \\"Q\\".",
+]
+`;
+
+exports[`graphql-loader fail-missing-schema-path 1`] = `
+Array [
+  "Module build failed (from ..):
+Error: schema option must be passed if validate is true",
+]
+`;
+
+exports[`graphql-loader filter-unused-fragments 1`] = `
+Object {
+  "default": "query X {
+  y {
+    ...Used
+  }
+}
+
+fragment Used on Y {
+  z
+  ...AlsoUsed
+}
+
+fragment AlsoUsed on Y {
+  z
+}
+",
+}
+`;
+
+exports[`graphql-loader fragments 1`] = `
+Object {
+  "default": "query X {
+  x
+  y
+  ...Z
+}
+
+fragment Z on Z {
+  z
+}
+",
+}
+`;
+
+exports[`graphql-loader fragments-common-duplicates 1`] = `
+Object {
+  "default": "query X {
+  ...a
+  ...b
+}
+
+fragment A on A {
+  ...C
+}
+
+fragment C on C {
+  c
+}
+
+fragment B on B {
+  ...C
+}
+",
+}
+`;
+
+exports[`graphql-loader issue-1-import-from-fragment 1`] = `
+Object {
+  "default": "{
+  ...FragA
+}
+
+fragment FragA on A {
+  a
+  ...FragB
+}
+
+fragment FragB on B {
+  b
+}
+",
+}
+`;
+
+exports[`graphql-loader minify 1`] = `
+Object {
+  "default": "query testQuery($q:string!,$t:string,$x:Boolean){test(q:$q,t:$t){x y@include(if:$x)...Z}}fragment Z on Z{z}",
+}
+`;
+
+exports[`graphql-loader simple 1`] = `
+Object {
+  "default": "query X {
+  x
+  y
+  z
+}
+",
+}
+`;
+
+exports[`graphql-loader two-loaders 1`] = `
+Object {
+  "a": Object {
+    "default": "query X {
+  y {
+    foo
+  }
+}
+",
+  },
+  "b": Object {
+    "default": "query X {
+  y {
+    bar
+  }
+}
+",
+  },
+}
+`;
+
+exports[`graphql-loader validator 1`] = `
+Object {
+  "default": "query X {
+  y {
+    z
+  }
+}
+",
+}
+`;

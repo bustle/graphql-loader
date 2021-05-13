@@ -1,0 +1,51 @@
+{
+  "name": "@bustle/graphql-loader",
+  "version": "1.0.0",
+  "description": "GraphQL Loader for Webpack",
+  "license": "MIT",
+  "main": "./lib/loader.js",
+  "types": "./lib/loader.d.ts",
+  "files": [
+    "lib"
+  ],
+  "homepage": "https://github.com/bustle/graphql-loader",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bustle/graphql-loader.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "format": "prettier '**/*.{js,ts,json,md}' --ignore-path .gitignore --write",
+    "prepublishOnly": "npm test && npm run build"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/memory-fs": "^0.3.3",
+    "graphql": "^15.4.0",
+    "jest": "^26.6.3",
+    "memory-fs": "^0.5.0",
+    "prettier": "^2.3.0",
+    "typescript": "^4.1.3",
+    "webpack": "^5.37.0"
+  },
+  "peerDependencies": {
+    "graphql": "^15.0.0",
+    "webpack": "^5.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/test/?(*.)(spec).ts"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "<rootDir>/test/preprocessor.js"
+    }
+  },
+  "prettier": {
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none"
+  }
+}
