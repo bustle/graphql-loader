@@ -53,10 +53,6 @@ Specifies whether or not the imported document should be a printed graphql strin
 
 If `true` and the `output` option is `string`, the loader will strip comments and whitespace from the graphql document strings. This helps to reduce bundled code size.
 
-#### esModule _(boolean) (default=true)_
-
-Generate JS modules that use the ES modules syntax
-
 #### removeUnusedFragments _(boolean) (default=false)_
 
 If `true`, the loader will remove unused fragments from the imported document. This may be useful if a query is importing fragments from a file, but does not use all fragments in that file. Also see [this issue](https://github.com/apollographql/graphql-tag/issues/102).
