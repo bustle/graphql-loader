@@ -67,6 +67,22 @@ If `'replace'` is specified, the default export will be replaced with the hash i
 
 If using the `hash` option, you can supply a custom hashing function. If not specified, there is a default that uses the built-in node crypto.
 
+## Plugin
+
+If you use the `hash` options of the loader for persisted queries, you can optionally also add the companion plugin which will output a json manifest of all the queries with their corresponding hash. You could then use this manifest to prime your server.
+
+```js
+const GraphQLLoaderPlugin = require('@bustle/graphql-loader/plugin')
+module.exports = {
+  // ...
+  plugins: [
+    new GraphQLLoaderPlugin({
+      hashManifestFilename: 'graphql-hash-manifest.json' // Optional filename option. This is the default
+    })
+  ]
+}
+```
+
 ## Import statements in `.graphql` files
 
 The loader supports importing `.graphql` files from other `.graphql` files using an `#import` statement. For example:
