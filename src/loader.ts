@@ -15,7 +15,7 @@ interface LoaderOptions {
   removeUnusedFragments?: boolean
   minify?: boolean
   hash?: boolean | 'replace'
-  hashFunction?: (string) => string
+  hashFunction?: (query: string) => string
 }
 
 interface CachedSchema {
@@ -24,6 +24,9 @@ interface CachedSchema {
 }
 
 const cachedSchemas: Record<string, CachedSchema> = {}
+
+const hashedQueryMap: Record<string, string> = {}
+export const hashedQueryMapKey = '__graphql-loader-hashed-query-map__'
 
 async function readFile(loader: LoaderContext<LoaderOptions>, filePath: string): Promise<string> {
   const content = await promisify(loader.fs.readFile)(filePath)
@@ -171,11 +174,16 @@ export default async function loader(this: LoaderContext<LoaderOptions>, source:
     const documentOutput =
       typeof documentContent === 'string' && options.minify ? minifyDocumentString(documentContent) : documentContent
 
-    const hashOutput =
+    const hashString =
       !!options.hash &&
       typeof documentOutput === 'string' &&
       (options.hashFunction ?? defaultHashFunction)(documentOutput)
-    const hashSource = hashOutput ? `export const hash=${JSON.stringify(hashOutput)}\n` : ''
+    const hashSource = hashString ? `export const hash=${JSON.stringify(hashString)}\n` : ''
+    if (hashString && typeof documentOutput === 'string') {
+      hashedQueryMap[hashString] = documentOutput
+      // @ts-ignore
+      this._compilation?.[hashedQueryMapKey] = hashedQueryMap
+    }
 
     const defaultExportSource =
       'export default ' + (options.hash === 'replace' ? 'hash' : JSON.stringify(documentOutput))
