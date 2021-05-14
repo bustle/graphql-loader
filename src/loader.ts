@@ -43,14 +43,10 @@ async function extractImports(
   const imports: Array<Promise<string>> = []
   lines.forEach((line) => {
     // Find lines that match syntax with `#import "<file>"`
-    if (line[0] !== '#') {
-      return
-    }
+    if (line[0] !== '#') return
 
-    const comment = line.slice(1).split(' ')
-    if (comment[0] !== 'import') {
-      return
-    }
+    const comment = line.slice(1).trim().split(' ')
+    if (comment[0] !== 'import') return
 
     const filePathMatch = comment[1] && comment[1].match(/^["'](.+)["']/)
     if (!filePathMatch || !filePathMatch.length) {

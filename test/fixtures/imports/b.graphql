@@ -1,0 +1,3 @@
+fragment B on B {
+  y
+}
