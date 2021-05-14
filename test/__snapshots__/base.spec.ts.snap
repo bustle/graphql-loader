@@ -158,7 +158,7 @@ Object {
 }
 `;
 
-exports[`graphql-loader issue-1-import-from-fragment 1`] = `
+exports[`graphql-loader import-from-fragment 1`] = `
 Object {
   "default": "{
   ...FragA
@@ -171,6 +171,24 @@ fragment FragA on A {
 
 fragment FragB on B {
   b
+}
+",
+}
+`;
+
+exports[`graphql-loader imports 1`] = `
+Object {
+  "default": "query X {
+  ...a
+  ...b
+}
+
+fragment A on A {
+  x
+}
+
+fragment B on B {
+  y
 }
 ",
 }

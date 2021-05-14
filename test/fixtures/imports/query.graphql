@@ -1,0 +1,15 @@
+# Valid
+#import "./a.graphql"
+# import "./b.graphql"
+
+# Commented out & exists
+##import "./c.graphql"
+# #import "./c.graphql"
+
+# Commented out, non-existant
+##import "./non-existant.graphql"
+
+query X {
+  ...a
+  ...b
+}
