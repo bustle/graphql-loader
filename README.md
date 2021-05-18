@@ -1,8 +1,8 @@
 # GraphQL Loader for Webpack
 
-A webpack loader for `.graphql` file query documents. Support for outputting as Document ASTs or strings & schema validation.
+A webpack loader for `.graphql` file query documents. Supports imports, outputting as strings or document ASTs, schema validation, and query hashing.
 
-### NOTE: This was originally forked from https://github.com/samsarahq/graphql-loader & then heavily modified. Thank you to the authors.
+**This was originally forked from https://github.com/samsarahq/graphql-loader & then heavily modified. Thank you to the authors.**
 
 ## Installation
 
@@ -37,9 +37,9 @@ module.exports = {
 
 ### Loader Options
 
-#### schema _(string) (default="")_
+#### schema _(string)_
 
-The location of your graphql introspection query schema JSON file. If used with the `validate` option, this will be used to validate imported queries and fragments.
+The path to your graphql introspection query schema JSON file. If used with the `validate` option, this will be used to validate imported queries and fragments.
 
 #### validate _(boolean) (default=false)_
 
@@ -47,7 +47,7 @@ If `true`, the loader will validate the imported document against your specified
 
 #### output _("string" | "document") (default="string")_
 
-Specifies whether or not the imported document should be a printed graphql string, or a graphql `DocumentNode` AST. The latter is useful for interop with [`graphql-tag`](https://github.com/apollographql/graphql-tag#webpack-preprocessing).
+Specifies whether or not the imported document should be a printed graphql string, or a graphql `DocumentNode` AST.
 
 #### minify _(boolean) (default=false)_
 
@@ -55,7 +55,7 @@ If `true` and the `output` option is `string`, the loader will strip comments an
 
 #### removeUnusedFragments _(boolean) (default=false)_
 
-If `true`, the loader will remove unused fragments from the imported document. This may be useful if a query is importing fragments from a file, but does not use all fragments in that file. Also see [this issue](https://github.com/apollographql/graphql-tag/issues/102).
+If `true`, the loader will remove unused fragments from the imported document. This may be useful if a query is importing fragments from a file, but does not use all fragments in that file.
 
 #### hash _(boolean | "replace") (default=false)_
 
@@ -65,14 +65,14 @@ If `'replace'` is specified, the default export will be replaced with the hash i
 
 #### hashFunction _(function) (default=defaultHashFunction)_
 
-If using the `hash` option, you can supply a custom hashing function. If not specified, there is a default that uses the built-in node crypto.
+If using the `hash` option, you can supply a custom hashing function. If not specified, uses node crypto.
 
 ## Plugin
 
-If you use the `hash` options of the loader for persisted queries, you can optionally also add the companion plugin which will output a json manifest of all the queries with their corresponding hash. You could then use this manifest to prime your server.
+If you use the `hash` options of the loader for persisted queries, you can optionally add the companion plugin which will output a json manifest of all the queries with their corresponding hash. You could then use this manifest to prime your server with the persisted queries.
 
 ```js
-const GraphQLLoaderPlugin = require('@bustle/graphql-loader/plugin')
+const { GraphQLLoaderPlugin } = require('@bustle/graphql-loader')
 module.exports = {
   // ...
   plugins: [
