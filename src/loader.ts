@@ -1,4 +1,4 @@
-import { join, dirname } from 'path'
+import { join, dirname, resolve } from 'path'
 import { promisify } from 'util'
 import { createHash } from 'crypto'
 import { LoaderContext } from 'webpack'
@@ -97,11 +97,15 @@ async function loadSource(loader: LoaderContext<LoaderOptions>, resolveContext: 
 async function loadSchema(loader: LoaderContext<LoaderOptions>, options: LoaderOptions): Promise<GraphQLSchema> {
   if (!options.schema) throw Error('schema option must be passed if validate is true')
 
-  const schemaPath = await findFileInTree(loader, loader.context, options.schema)
-  loader.addDependency(schemaPath)
+  const schemaPath = resolve(loader.context, options.schema)
+  let stats
+  try {
+    stats = await promisify(loader.fs.stat)(schemaPath)
+  } catch (e) {
+    throw Error(`Could not find schema file: "${schemaPath}"`)
+  }
 
-  const stats = await promisify(loader.fs.stat)(schemaPath)
-  const lastChangedAt = stats?.mtime.getTime() ?? -1
+  loader.addDependency(schemaPath)
 
   // Note that we always read the file before we check the cache. This is to put a
   // run-to-completion "mutex" around accesses to cachedSchemas so that updating the cache is not
@@ -110,6 +114,7 @@ async function loadSchema(loader: LoaderContext<LoaderOptions>, options: LoaderO
   const schemaString = await readFile(loader, schemaPath)
 
   // The cached version of the schema is valid as long its modification time has not changed.
+  const lastChangedAt = stats?.mtime.getTime() ?? -1
   if (cachedSchemas[schemaPath] && lastChangedAt <= cachedSchemas[schemaPath].mtime) {
     return cachedSchemas[schemaPath].schema
   }
@@ -121,29 +126,6 @@ async function loadSchema(loader: LoaderContext<LoaderOptions>, options: LoaderO
   }
 
   return schema
-}
-
-/**
- * findFileInTree returns the path for the requested file given the current context,
- * walking up towards the root until it finds the file. If the function fails to find
- * the file, it will throw an error.
- */
-async function findFileInTree(loader: LoaderContext<LoaderOptions>, context: string, schemaPath: string) {
-  const stat = promisify(loader.fs.stat)
-  let currentContext = context
-  while (true) {
-    const fileName = join(currentContext, schemaPath)
-    try {
-      if ((await stat(fileName))?.isFile()) return fileName
-    } catch {}
-
-    const parent = dirname(currentContext)
-    if (parent === currentContext) {
-      // Reached root of the fs, but we still haven't found anything.
-      throw new Error(`Could not find schema file '${schemaPath} from any parent of '${context}'`)
-    }
-    currentContext = parent
-  }
 }
 
 export default async function loader(this: LoaderContext<LoaderOptions>, source: string) {
