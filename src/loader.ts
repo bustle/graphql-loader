@@ -169,7 +169,8 @@ export default async function loader(this: LoaderContext<LoaderOptions>, source:
 
     done(null, outputSource)
   } catch (err) {
-    done(err)
+    const error = err instanceof Error ? err : Error('Unknown Error')
+    done(error)
   }
 }
 
