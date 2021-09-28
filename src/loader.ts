@@ -107,6 +107,8 @@ async function loadSchema(loader: LoaderContext<LoaderOptions>, options: LoaderO
 
   loader.addDependency(schemaPath)
 
+  const lastChangedAt = stats?.mtime.getTime() ?? -1
+
   // Note that we always read the file before we check the cache. This is to put a
   // run-to-completion "mutex" around accesses to cachedSchemas so that updating the cache is not
   // deferred for concurrent loads. This should be reasonably inexpensive because the fs
@@ -114,7 +116,6 @@ async function loadSchema(loader: LoaderContext<LoaderOptions>, options: LoaderO
   const schemaString = await readFile(loader, schemaPath)
 
   // The cached version of the schema is valid as long its modification time has not changed.
-  const lastChangedAt = stats?.mtime.getTime() ?? -1
   if (cachedSchemas[schemaPath] && lastChangedAt <= cachedSchemas[schemaPath].mtime) {
     return cachedSchemas[schemaPath].schema
   }
