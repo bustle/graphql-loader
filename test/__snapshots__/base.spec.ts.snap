@@ -102,8 +102,7 @@ fragment Used on Y {
 
 fragment AlsoUsed on Y {
   z
-}
-",
+}",
 }
 `;
 
@@ -117,8 +116,7 @@ Object {
 
 fragment Z on Z {
   z
-}
-",
+}",
 }
 `;
 
@@ -139,8 +137,7 @@ fragment C on C {
 
 fragment B on B {
   ...C
-}
-",
+}",
 }
 `;
 
@@ -171,8 +168,7 @@ fragment FragA on A {
 
 fragment FragB on B {
   b
-}
-",
+}",
 }
 `;
 
@@ -189,8 +185,7 @@ fragment A on A {
 
 fragment B on B {
   y
-}
-",
+}",
 }
 `;
 
@@ -206,8 +201,7 @@ Object {
   x
   y
   z
-}
-",
+}",
 }
 `;
 
@@ -218,16 +212,14 @@ Object {
   y {
     foo
   }
-}
-",
+}",
   },
   "b": Object {
     "default": "query X {
   y {
     bar
   }
-}
-",
+}",
   },
 }
 `;
@@ -238,7 +230,6 @@ Object {
   y {
     z
   }
-}
-",
+}",
 }
 `;
