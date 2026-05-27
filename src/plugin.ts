@@ -1,5 +1,4 @@
-import { join } from 'path'
-import { WebpackPluginInstance, Compiler, Compilation, sources } from 'webpack'
+import type { WebpackPluginInstance, Compiler } from 'webpack'
 import { hashedQueryMapKey } from './loader'
 
 const PluginName = 'GraphQLLoaderPlugin'
@@ -16,6 +15,8 @@ export default class GraphQLLoaderPlugin implements WebpackPluginInstance {
   }
 
   apply(compiler: Compiler) {
+    const { Compilation, sources } = compiler.webpack
+
     compiler.hooks.thisCompilation.tap(PluginName, (compilation) => {
       compilation.hooks.processAssets.tap(
         {

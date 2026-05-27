@@ -1,7 +1,7 @@
 {
   "name": "@bustle/graphql-loader",
-  "version": "1.1.0",
-  "description": "GraphQL Loader for Webpack",
+  "version": "2.0.0",
+  "description": "GraphQL Loader for Webpack and Rspack",
   "license": "MIT",
   "main": "./dist/index.js",
   "files": [
@@ -11,36 +11,49 @@
   "repository": "bustle/graphql-loader",
   "keywords": [
     "webpack",
+    "rspack",
     "loader",
     "graphql"
   ],
   "scripts": {
     "build": "tsc",
-    "test": "jest",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "format": "prettier '**/*.{js,ts,json,md}' --ignore-path .gitignore --write",
     "prepublishOnly": "npm test && npm run build"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.3",
+    "@rspack/core": "^2.0.4",
+    "@types/jest": "^30.0.0",
     "@types/memory-fs": "^0.3.3",
-    "graphql": "^16.0.1",
-    "jest": "^27.4.0",
+    "@types/node": "^25.9.1",
+    "graphql": "^16.14.0",
+    "jest": "^30.4.2",
     "memory-fs": "^0.5.0",
-    "prettier": "^2.5.0",
-    "typescript": "^4.5.2",
+    "prettier": "^3.8.3",
+    "ts-jest": "^29.4.11",
+    "typescript": "^6.0.3",
     "webpack": "^5.64.4"
   },
   "peerDependencies": {
+    "@rspack/core": "^2",
     "graphql": "^15 || ^16",
     "webpack": "^5"
+  },
+  "peerDependenciesMeta": {
+    "@rspack/core": {
+      "optional": true
+    },
+    "webpack": {
+      "optional": true
+    }
   },
   "jest": {
     "testEnvironment": "node",
     "testMatch": [
-      "**/test/?(*.)(spec).ts"
+      "<rootDir>/test/**/*.spec.ts"
     ],
     "transform": {
-      "^.+\\.(ts|tsx)$": "<rootDir>/test/preprocessor.js"
+      "^.+\\.tsx?$": "ts-jest"
     }
   },
   "prettier": {

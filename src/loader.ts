@@ -1,7 +1,7 @@
-import { join, dirname, resolve } from 'path'
+import { dirname, resolve } from 'path'
 import { promisify } from 'util'
 import { createHash } from 'crypto'
-import { LoaderContext } from 'webpack'
+import type { LoaderContext } from 'webpack'
 import { print as graphqlPrint } from 'graphql/language/printer'
 import { parse as graphqlParse } from 'graphql/language/parser'
 import { validate as graphqlValidate } from 'graphql/validation/validate'
@@ -98,16 +98,17 @@ async function loadSchema(loader: LoaderContext<LoaderOptions>, options: LoaderO
   if (!options.schema) throw Error('schema option must be passed if validate is true')
 
   const schemaPath = resolve(loader.context, options.schema)
-  let stats
+  let mtime: Date | undefined
   try {
-    stats = await promisify(loader.fs.stat)(schemaPath)
-  } catch (e) {
+    const stats = (await promisify(loader.fs.stat)(schemaPath)) as { mtime?: Date } | undefined
+    mtime = stats?.mtime
+  } catch {
     throw Error(`Could not find schema file: "${schemaPath}"`)
   }
 
   loader.addDependency(schemaPath)
 
-  const lastChangedAt = stats?.mtime.getTime() ?? -1
+  const lastChangedAt = mtime?.getTime() ?? -1
 
   // Note that we always read the file before we check the cache. This is to put a
   // run-to-completion "mutex" around accesses to cachedSchemas so that updating the cache is not

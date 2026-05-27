@@ -1,50 +1,50 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`graphql-loader document-output 1`] = `
-Object {
-  "default": Object {
-    "definitions": Array [
-      Object {
-        "directives": Array [],
+exports[`graphql-loader (rspack) document-output 1`] = `
+{
+  "default": {
+    "definitions": [
+      {
+        "directives": [],
         "kind": "OperationDefinition",
-        "name": Object {
+        "name": {
           "kind": "Name",
           "value": "X",
         },
         "operation": "query",
-        "selectionSet": Object {
+        "selectionSet": {
           "kind": "SelectionSet",
-          "selections": Array [
-            Object {
-              "arguments": Array [],
-              "directives": Array [],
+          "selections": [
+            {
+              "arguments": [],
+              "directives": [],
               "kind": "Field",
-              "name": Object {
+              "name": {
                 "kind": "Name",
                 "value": "x",
               },
             },
-            Object {
-              "arguments": Array [],
-              "directives": Array [],
+            {
+              "arguments": [],
+              "directives": [],
               "kind": "Field",
-              "name": Object {
+              "name": {
                 "kind": "Name",
                 "value": "y",
               },
             },
-            Object {
-              "arguments": Array [],
-              "directives": Array [],
+            {
+              "arguments": [],
+              "directives": [],
               "kind": "Field",
-              "name": Object {
+              "name": {
                 "kind": "Name",
                 "value": "z",
               },
             },
           ],
         },
-        "variableDefinitions": Array [],
+        "variableDefinitions": [],
       },
     ],
     "kind": "Document",
@@ -52,43 +52,38 @@ Object {
 }
 `;
 
-exports[`graphql-loader fail-invalid-document 1`] = `
-Array [
-  "Module build failed (from ..):
-GraphQLError: Syntax Error: Expected Name, found \\"[\\".",
+exports[`graphql-loader (rspack) fail-invalid-document 1`] = `
+[
+  "GraphQLError: Syntax Error: Expected Name, found "[".",
 ]
 `;
 
-exports[`graphql-loader fail-invalid-field 1`] = `
-Array [
-  "Module Error (from ..):
-Cannot query field \\"q\\" on type \\"Y\\". Did you mean \\"z\\"?",
+exports[`graphql-loader (rspack) fail-invalid-field 1`] = `
+[
+  "Cannot query field "q" on type "Y". Did you mean "z"?",
 ]
 `;
 
-exports[`graphql-loader fail-invalid-schema-path 1`] = `
-Array [
-  "Module build failed (from ..):
-Error: Could not find schema file: \\"\\"",
+exports[`graphql-loader (rspack) fail-invalid-schema-path 1`] = `
+[
+  "Error: Could not find schema file: "<path>"",
 ]
 `;
 
-exports[`graphql-loader fail-missing-fragment 1`] = `
-Array [
-  "Module Error (from ..):
-Unknown fragment \\"Q\\".",
+exports[`graphql-loader (rspack) fail-missing-fragment 1`] = `
+[
+  "Unknown fragment "Q".",
 ]
 `;
 
-exports[`graphql-loader fail-missing-schema-path 1`] = `
-Array [
-  "Module build failed (from ..):
-Error: schema option must be passed if validate is true",
+exports[`graphql-loader (rspack) fail-missing-schema-path 1`] = `
+[
+  "Error: schema option must be passed if validate is true",
 ]
 `;
 
-exports[`graphql-loader filter-unused-fragments 1`] = `
-Object {
+exports[`graphql-loader (rspack) filter-unused-fragments 1`] = `
+{
   "default": "query X {
   y {
     ...Used
@@ -106,8 +101,8 @@ fragment AlsoUsed on Y {
 }
 `;
 
-exports[`graphql-loader fragments 1`] = `
-Object {
+exports[`graphql-loader (rspack) fragments 1`] = `
+{
   "default": "query X {
   x
   y
@@ -120,8 +115,8 @@ fragment Z on Z {
 }
 `;
 
-exports[`graphql-loader fragments-common-duplicates 1`] = `
-Object {
+exports[`graphql-loader (rspack) fragments-common-duplicates 1`] = `
+{
   "default": "query X {
   ...a
   ...b
@@ -141,22 +136,22 @@ fragment B on B {
 }
 `;
 
-exports[`graphql-loader hash 1`] = `
-Object {
+exports[`graphql-loader (rspack) hash 1`] = `
+{
   "default": "query X{x y z}",
   "hash": "0cc86a7ea2ae4bb9587dd06bdc58e17d9c29e14748e703a8e7716736433d2209",
 }
 `;
 
-exports[`graphql-loader hash-replace 1`] = `
-Object {
+exports[`graphql-loader (rspack) hash-replace 1`] = `
+{
   "default": "0cc86a7ea2ae4bb9587dd06bdc58e17d9c29e14748e703a8e7716736433d2209",
   "hash": "0cc86a7ea2ae4bb9587dd06bdc58e17d9c29e14748e703a8e7716736433d2209",
 }
 `;
 
-exports[`graphql-loader import-from-fragment 1`] = `
-Object {
+exports[`graphql-loader (rspack) import-from-fragment 1`] = `
+{
   "default": "{
   ...FragA
 }
@@ -172,8 +167,8 @@ fragment FragB on B {
 }
 `;
 
-exports[`graphql-loader imports 1`] = `
-Object {
+exports[`graphql-loader (rspack) imports 1`] = `
+{
   "default": "query X {
   ...a
   ...b
@@ -189,14 +184,14 @@ fragment B on B {
 }
 `;
 
-exports[`graphql-loader minify 1`] = `
-Object {
+exports[`graphql-loader (rspack) minify 1`] = `
+{
   "default": "query testQuery($q:string!,$t:string,$x:Boolean){test(q:$q,t:$t){x y@include(if:$x)...Z}}fragment Z on Z{z}",
 }
 `;
 
-exports[`graphql-loader simple 1`] = `
-Object {
+exports[`graphql-loader (rspack) simple 1`] = `
+{
   "default": "query X {
   x
   y
@@ -205,16 +200,16 @@ Object {
 }
 `;
 
-exports[`graphql-loader two-loaders 1`] = `
-Object {
-  "a": Object {
+exports[`graphql-loader (rspack) two-loaders 1`] = `
+{
+  "a": {
     "default": "query X {
   y {
     foo
   }
 }",
   },
-  "b": Object {
+  "b": {
     "default": "query X {
   y {
     bar
@@ -224,8 +219,237 @@ Object {
 }
 `;
 
-exports[`graphql-loader validator 1`] = `
-Object {
+exports[`graphql-loader (rspack) validator 1`] = `
+{
+  "default": "query X {
+  y {
+    z
+  }
+}",
+}
+`;
+
+exports[`graphql-loader (webpack) document-output 1`] = `
+{
+  "default": {
+    "definitions": [
+      {
+        "directives": [],
+        "kind": "OperationDefinition",
+        "name": {
+          "kind": "Name",
+          "value": "X",
+        },
+        "operation": "query",
+        "selectionSet": {
+          "kind": "SelectionSet",
+          "selections": [
+            {
+              "arguments": [],
+              "directives": [],
+              "kind": "Field",
+              "name": {
+                "kind": "Name",
+                "value": "x",
+              },
+            },
+            {
+              "arguments": [],
+              "directives": [],
+              "kind": "Field",
+              "name": {
+                "kind": "Name",
+                "value": "y",
+              },
+            },
+            {
+              "arguments": [],
+              "directives": [],
+              "kind": "Field",
+              "name": {
+                "kind": "Name",
+                "value": "z",
+              },
+            },
+          ],
+        },
+        "variableDefinitions": [],
+      },
+    ],
+    "kind": "Document",
+  },
+}
+`;
+
+exports[`graphql-loader (webpack) fail-invalid-document 1`] = `
+[
+  "GraphQLError: Syntax Error: Expected Name, found "[".",
+]
+`;
+
+exports[`graphql-loader (webpack) fail-invalid-field 1`] = `
+[
+  "Cannot query field "q" on type "Y". Did you mean "z"?",
+]
+`;
+
+exports[`graphql-loader (webpack) fail-invalid-schema-path 1`] = `
+[
+  "Error: Could not find schema file: "<path>"",
+]
+`;
+
+exports[`graphql-loader (webpack) fail-missing-fragment 1`] = `
+[
+  "Unknown fragment "Q".",
+]
+`;
+
+exports[`graphql-loader (webpack) fail-missing-schema-path 1`] = `
+[
+  "Error: schema option must be passed if validate is true",
+]
+`;
+
+exports[`graphql-loader (webpack) filter-unused-fragments 1`] = `
+{
+  "default": "query X {
+  y {
+    ...Used
+  }
+}
+
+fragment Used on Y {
+  z
+  ...AlsoUsed
+}
+
+fragment AlsoUsed on Y {
+  z
+}",
+}
+`;
+
+exports[`graphql-loader (webpack) fragments 1`] = `
+{
+  "default": "query X {
+  x
+  y
+  ...Z
+}
+
+fragment Z on Z {
+  z
+}",
+}
+`;
+
+exports[`graphql-loader (webpack) fragments-common-duplicates 1`] = `
+{
+  "default": "query X {
+  ...a
+  ...b
+}
+
+fragment A on A {
+  ...C
+}
+
+fragment C on C {
+  c
+}
+
+fragment B on B {
+  ...C
+}",
+}
+`;
+
+exports[`graphql-loader (webpack) hash 1`] = `
+{
+  "default": "query X{x y z}",
+  "hash": "0cc86a7ea2ae4bb9587dd06bdc58e17d9c29e14748e703a8e7716736433d2209",
+}
+`;
+
+exports[`graphql-loader (webpack) hash-replace 1`] = `
+{
+  "default": "0cc86a7ea2ae4bb9587dd06bdc58e17d9c29e14748e703a8e7716736433d2209",
+  "hash": "0cc86a7ea2ae4bb9587dd06bdc58e17d9c29e14748e703a8e7716736433d2209",
+}
+`;
+
+exports[`graphql-loader (webpack) import-from-fragment 1`] = `
+{
+  "default": "{
+  ...FragA
+}
+
+fragment FragA on A {
+  a
+  ...FragB
+}
+
+fragment FragB on B {
+  b
+}",
+}
+`;
+
+exports[`graphql-loader (webpack) imports 1`] = `
+{
+  "default": "query X {
+  ...a
+  ...b
+}
+
+fragment A on A {
+  x
+}
+
+fragment B on B {
+  y
+}",
+}
+`;
+
+exports[`graphql-loader (webpack) minify 1`] = `
+{
+  "default": "query testQuery($q:string!,$t:string,$x:Boolean){test(q:$q,t:$t){x y@include(if:$x)...Z}}fragment Z on Z{z}",
+}
+`;
+
+exports[`graphql-loader (webpack) simple 1`] = `
+{
+  "default": "query X {
+  x
+  y
+  z
+}",
+}
+`;
+
+exports[`graphql-loader (webpack) two-loaders 1`] = `
+{
+  "a": {
+    "default": "query X {
+  y {
+    foo
+  }
+}",
+  },
+  "b": {
+    "default": "query X {
+  y {
+    bar
+  }
+}",
+  },
+}
+`;
+
+exports[`graphql-loader (webpack) validator 1`] = `
+{
   "default": "query X {
   y {
     z
