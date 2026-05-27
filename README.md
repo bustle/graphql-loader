@@ -1,6 +1,6 @@
-# GraphQL Loader for Webpack
+# GraphQL Loader for Webpack and Rspack
 
-A webpack loader for `.graphql` file query documents. Supports imports, outputting as strings or document ASTs, schema validation, and query hashing.
+A loader for `.graphql` file query documents that works with both [webpack](https://webpack.js.org/) and [Rspack](https://rspack.dev/). Supports imports, outputting as strings or document ASTs, schema validation, and query hashing.
 
 **This was originally forked from https://github.com/samsarahq/graphql-loader & then heavily modified. Thank you to the authors.**
 
@@ -10,9 +10,11 @@ A webpack loader for `.graphql` file query documents. Supports imports, outputti
 npm install --save-dev @bustle/graphql-loader
 ```
 
+`webpack` and `@rspack/core` are declared as optional peer dependencies — install whichever bundler you use.
+
 ## Configuration
 
-Add the loader to your webpack config:
+Add the loader to your webpack or rspack config:
 
 ```js
 module.exports = {
